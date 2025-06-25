@@ -8,14 +8,14 @@ import { useNotification } from "./Notification";
 import { apiClient } from "@/utils/api-client";
 import FileUpload from "./FileUpload";
 
-interface VideoFormData {
+interface ImageFormData {
   title: string;
   description: string;
-  videoUrl: string;
-  thumbUrl: string;
+  ImageUrl: string;
+
 }
 
-export default function VideoUploadForm() {
+export default function ImageUploadForm() {
   const [loading, setLoading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const { showNotification } = useNotification();
@@ -25,41 +25,41 @@ export default function VideoUploadForm() {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm<VideoFormData>({
+  } = useForm<ImageFormData>({
     defaultValues: {
       title: "",
       description: "",
-      videoUrl: "",
-      thumbUrl: "",
+      ImageUrl: "",
+      
     },
   });
 
   const handleUploadSuccess = (response: IKUploadResponse) => {
-    setValue("videoUrl", response.filePath);
-    setValue("thumbUrl", response.thumbnailUrl || response.filePath);
-    showNotification("Video uploaded successfully!", "success");
+    setValue("ImageUrl", response.filePath);
+   
+    showNotification("Image uploaded successfully!", "success");
   };
 
   const handleUploadProgress = (progress: number) => {
     setUploadProgress(progress);
   };
 
-  const onSubmit = async (data: VideoFormData) => {
-    if (!data.videoUrl) {
-      showNotification("Please upload a video first", "error");
+  const onSubmit = async (data: ImageFormData) => {
+    if (!data.ImageUrl) {
+      showNotification("Please upload a Image first", "error");
       return;
     }
 
     setLoading(true);
     try {
-      await apiClient.createVideo(data);
+      await apiClient.createImage(data);
       showNotification("Video published successfully!", "success");
 
       // Reset form after successful submission
       setValue("title", "");
       setValue("description", "");
-      setValue("videoUrl", "");
-      setValue("thumbUrl", "");
+      setValue("ImageUrl", "");
+    
       setUploadProgress(0);
     } catch (error) {
       showNotification(
@@ -105,13 +105,14 @@ export default function VideoUploadForm() {
       </div>
 
       <div className="form-control">
-        <label className="label">Upload Video</label>
+        <label className="label">Upload Image</label>
+       
         <FileUpload
-          fileType="video"
+          fileType="image"
           onSuccess={handleUploadSuccess}
           onProgress={handleUploadProgress}
+          
         />
-       
         {uploadProgress > 0 && (
           <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
             <div
@@ -130,10 +131,10 @@ export default function VideoUploadForm() {
         {loading ? (
           <>
             <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-            Publishing Video...
+            Publishing Image...
           </>
         ) : (
-          "Publish Video"
+          "Publish Image"
         )}
       </button>
     </form>

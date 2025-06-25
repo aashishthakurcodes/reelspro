@@ -1,6 +1,8 @@
 import { IVideo } from "@/modals/Video";
+import {IIMAGE} from "@/modals/ImageModal"
 
 export type VideoFormData = Omit<IVideo, "_id">;
+export type ImageFormData = Omit<IIMAGE, "_id">;
 
 type FetchOptions = {
   method?: "GET" | "POST" | "PUT" | "DELETE";
@@ -37,14 +39,29 @@ class ApiClient {
     return this.fetch<IVideo[]>("/videos");
   }
 
+  async getImages() {
+    return this.fetch<IIMAGE[]>("/images");
+  }
+
+
   async getVideo(id: string) {
     return this.fetch<IVideo>(`/videos/${id}`);
   }
 
+    async getImage(id: string) {
+    return this.fetch<IIMAGE>(`/images/${id}`);
+  }
   async createVideo(videoData: VideoFormData) {
     return this.fetch<IVideo>("/videos", {
       method: "POST",
       body: videoData,
+    });
+  }
+
+   async createImage(imageData: ImageFormData) {
+    return this.fetch<IIMAGE>("/images", {
+      method: "POST",
+      body: imageData,
     });
   }
 }

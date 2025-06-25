@@ -1,5 +1,6 @@
 "use client";
 
+import ImageUploadForm from "../components/ImageUploadForm";
 import VideoUploadForm from "../components/VideoUploadForm";
 
 export default function VideoUploadPage() {
@@ -8,6 +9,7 @@ export default function VideoUploadPage() {
       <div className="max-w-2xl mx-auto">
         <h1 className="text-3xl font-bold mb-8">Upload New Reel</h1>
         <VideoUploadForm />
+        <ImageUploadForm/>
       </div>
     </div>
   );
