@@ -37,11 +37,10 @@ export async function POST(request: NextRequest) {
           message: "User Registered SuccessFully",
         },
         {status:201}
-      );
-
-
-      
+      ); 
   } catch (error) {
     throw error
   }
 }
+
+//for authentication we have to download nwxtauth

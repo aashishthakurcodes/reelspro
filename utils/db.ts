@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const MONGODB_url = process.env.MONGO_URL!;
+const MONGODB_url = process.env.MONGODB_URI!;
 if (!MONGODB_url) {
   throw new Error("pl define mongodburl");
 }
